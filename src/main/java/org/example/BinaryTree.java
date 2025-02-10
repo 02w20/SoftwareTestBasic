@@ -5,18 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-class TreeNode {
-    int value;
-    TreeNode left;
-    TreeNode right;
-
-    TreeNode(int value) {
-        this.value = value;
-        this.left = null;
-        this.right = null;
-    }
-}
-
 public class BinaryTree {
     TreeNode root;
 
@@ -24,20 +12,17 @@ public class BinaryTree {
         return root;
     }
 
-    public int getRootValue() {
-        return root.value;
+    public TreeNode getLeft() {
+        return root.left;
     }
 
-    public int getLeftValue() {
-        return root.left.value;
-    }
-
-    public int getRightValue() {
-        return root.right.value;
+    public TreeNode getRight() {
+        return root.right;
     }
 
     // 使用数组创建二叉树
     public void createTree(int[] array) {
+
         root = createTreeFromArray(array, 0);
     }
 
@@ -52,29 +37,29 @@ public class BinaryTree {
     }
 
     // 前序遍历
-    public void preOrder(TreeNode node) {
+    public void preOrder(TreeNode node, StringBuilder result) {
         if (node != null) {
-            System.out.print(node.value + " ");
-            preOrder(node.left);
-            preOrder(node.right);
+            result.append(node.value).append(" ");
+            preOrder(node.left, result);
+            preOrder(node.right, result);
         }
     }
 
     // 中序遍历
-    public void inOrder(TreeNode node) {
+    public void inOrder(TreeNode node, StringBuilder result) {
         if (node != null) {
-            inOrder(node.left);
-            System.out.print(node.value + " ");
-            inOrder(node.right);
+            inOrder(node.left, result);
+            result.append(node.value).append(" ");
+            inOrder(node.right, result);
         }
     }
 
     // 后序遍历
-    public void postOrder(TreeNode node) {
+    public void postOrder(TreeNode node, StringBuilder result) {
         if (node != null) {
-            postOrder(node.left);
-            postOrder(node.right);
-            System.out.print(node.value + " ");
+            postOrder(node.left, result);
+            postOrder(node.right, result);
+            result.append(node.value).append(" ");
         }
     }
 
@@ -178,12 +163,12 @@ public class BinaryTree {
         int[] array = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         tree.createTree(array);
 
-        System.out.println("前序遍历:");
-        tree.preOrder(tree.root);
-        System.out.println("\n中序遍历:");
-        tree.inOrder(tree.root);
-        System.out.println("\n后序遍历:");
-        tree.postOrder(tree.root);
+        //System.out.println("前序遍历:");
+        //tree.preOrder(tree.root);
+        //System.out.println("\n中序遍历:");
+        //tree.inOrder(tree.root);
+        //System.out.println("\n后序遍历:");
+        //tree.postOrder(tree.root);
 
         System.out.println("叶子结点个数: " + tree.countLeaves(tree.root));
 
@@ -192,13 +177,13 @@ public class BinaryTree {
         System.out.println("插入节点 10");
         tree.insert(10);
         System.out.println("中序遍历:");
-        tree.inOrder(tree.root);
+
 
         System.out.println("\n删除节点 3");
         tree.delete(3);
         System.out.println("\n删除节点 14");
         tree.delete(14);
         System.out.println("中序遍历:");
-        tree.inOrder(tree.root);
+
     }
 }
